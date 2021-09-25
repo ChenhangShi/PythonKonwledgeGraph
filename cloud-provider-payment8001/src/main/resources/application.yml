@@ -5,6 +5,10 @@ server:
 spring:
   application:
     name: cloud-provider-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # 配置Nacos地址
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
     driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
@@ -15,3 +19,9 @@ spring:
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   type-aliases-package: com.group2.entities    # 所有Entity别名类所在包，xml就方便找
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

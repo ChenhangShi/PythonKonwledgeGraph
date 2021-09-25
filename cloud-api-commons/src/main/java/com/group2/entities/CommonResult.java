@@ -1,4 +1,4 @@
-package com.group2.entity;
+package com.group2.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author YangPx
- * @create 2021-09-25 11:09
+ * @create 2021-09-25 19:32
  */
 @Data
 @AllArgsConstructor

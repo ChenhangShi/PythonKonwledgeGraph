@@ -1,4 +1,4 @@
-package com.group2.entity;
+package com.group2.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author YangPx
- * @create 2021-09-25 11:06
+ * @create 2021-09-25 20:04
  */
 @Data
 @AllArgsConstructor

@@ -6,12 +6,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author YangPx
- * @create 2021-09-25 10:53
+ * @create 2021-09-25 19:29
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ProviderMain8001 {
+public class ConsumerMain7001 {
     public static void main(String[] args) {
-        SpringApplication.run(ProviderMain8001.class, args);
+        SpringApplication.run(ConsumerMain7001.class, args);
     }
 }

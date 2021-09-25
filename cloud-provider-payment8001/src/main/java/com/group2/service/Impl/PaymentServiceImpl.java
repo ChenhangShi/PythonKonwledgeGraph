@@ -1,9 +1,8 @@
 package com.group2.service.Impl;
 
 import com.group2.dao.PaymentDao;
-import com.group2.entity.Payment;
+import com.group2.entities.Payment;
 import com.group2.service.PaymentService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

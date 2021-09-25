@@ -12,6 +12,9 @@
     <!--    父工程的子微服务modules-->
     <modules>
         <module>cloud-provider-payment8001</module>
+        <module>cloud-consumer-order7001</module>
+        <module>cloud-api-commons</module>
+        <module>cloud-provider-payment8002</module>
     </modules>
 
     <!-- 统一管理jar包版本 -->
@@ -91,6 +94,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>backend-2</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

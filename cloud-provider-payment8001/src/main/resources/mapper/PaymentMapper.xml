@@ -8,7 +8,7 @@
         values (#{serial});
     </insert>
 
-    <resultMap id="PaymentResultMap" type="com.group2.entity.Payment">
+    <resultMap id="PaymentResultMap" type="com.group2.entities.Payment">
         <!--        column数据库列名 property是java属性名-->
         <id column="id" property="id" jdbcType="BIGINT"/>
         <id column="serial" property="serial" jdbcType="VARCHAR"/>

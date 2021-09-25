@@ -1,6 +1,6 @@
 package com.group2.dao;
 
-import com.group2.entity.Payment;
+import com.group2.entities.Payment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
