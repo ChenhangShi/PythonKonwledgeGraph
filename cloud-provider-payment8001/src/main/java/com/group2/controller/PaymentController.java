@@ -1,5 +1,7 @@
 package com.group2.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.group2.entities.CommonResult;
 import com.group2.entities.Payment;
 import com.group2.service.PaymentService;
@@ -22,6 +24,22 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
+    @GetMapping("/testA")
+    public String testA() {
+        return "------testA";
+    }
+
+    @GetMapping("/testB")
+    public String testB() {
+        log.info(Thread.currentThread().getName() + "\t" + "...testB");
+        return "------testB";
+    }
+
+    @GetMapping(value = "/payment/nacos/{id}")
+    public String getPayment(@PathVariable("id") Long id) {
+        return "nacos registry, serverPort: " + serverPort + ", id" + id;
+    }
+
     @PostMapping(value = "/payment/create")
     public CommonResult create(@RequestBody Payment payment) {
         int result = paymentService.create(payment);
@@ -31,11 +49,6 @@ public class PaymentController {
         } else {
             return new CommonResult(417, "插入失败");
         }
-    }
-
-    @GetMapping(value = "/payment/nacos/{id}")
-    public String getPayment(@PathVariable("id") Long id) {
-        return "nacos registry, serverPort: " + serverPort + ", id" + id;
     }
 
     @GetMapping(value = "/payment/get/{id}")

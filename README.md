@@ -8,6 +8,7 @@
 
 - nacos 1.1.4 https://github.com/alibaba/nacos/releases/tag/1.1.4
 - cloud alibaba 2.1.0
+- sentinel 1.7.0 https://github.com/alibaba/Sentinel/releases/tag/1.7.0
 
 
 ## todo
