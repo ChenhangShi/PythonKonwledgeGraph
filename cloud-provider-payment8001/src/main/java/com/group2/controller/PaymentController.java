@@ -26,7 +26,7 @@ public class PaymentController {
 
     @GetMapping("/testA")
     public String testA() {
-        return "------testA";
+        return "------testC";
     }
 
     @GetMapping("/testB")

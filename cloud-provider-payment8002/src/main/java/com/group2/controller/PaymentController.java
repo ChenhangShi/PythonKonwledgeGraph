@@ -2,6 +2,7 @@ package com.group2.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -11,10 +12,19 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Slf4j
+@RefreshScope // 支持Nacos的动态刷新
 public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
+
+    @Value("${config.info}")
+    private String configInfo;
+
+    @GetMapping("/config/info")
+    public String getConfigInfo() {
+        return configInfo;
+    }
 
     @GetMapping("/testA")
     public String testA() {
