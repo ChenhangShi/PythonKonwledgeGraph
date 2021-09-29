@@ -26,7 +26,7 @@ public class PaymentController {
 
     @GetMapping("/testA")
     public String testA() {
-        return "------testC";
+        return "------testA";
     }
 
     @GetMapping("/testB")
@@ -37,28 +37,28 @@ public class PaymentController {
 
     @GetMapping(value = "/payment/nacos/{id}")
     public String getPayment(@PathVariable("id") Long id) {
-        return "nacos registry, serverPort: " + serverPort + ", id" + id;
+        return "from serverPort: " + serverPort + ", id: " + id;
     }
 
     @PostMapping(value = "/payment/create")
-    public CommonResult create(@RequestBody Payment payment) {
+    public CommonResult<Integer> create(@RequestBody Payment payment) {
         int result = paymentService.create(payment);
         log.info("****插入结果" + result);
         if (result > 0) {
-            return new CommonResult(200, "插入成功", result);
+            return new CommonResult<>(200, "插入成功", result);
         } else {
-            return new CommonResult(417, "插入失败");
+            return new CommonResult<>(417, "插入失败");
         }
     }
 
     @GetMapping(value = "/payment/get/{id}")
-    public CommonResult getPaymentById(@PathVariable("id") Long id) {
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPaymentById(id);
         log.info("****查询结果" + payment);
         if (payment != null) {
-            return new CommonResult(200, "查询成功", payment);
+            return new CommonResult<>(200, "查询成功", payment);
         } else {
-            return new CommonResult(410, "没有该记录，查询失败");
+            return new CommonResult<>(410, "没有该记录，查询失败");
         }
     }
 }

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-gateway-gateway9527</artifactId>
+    <artifactId>cloud-gateway-gateway9001</artifactId>
 
     <dependencies>
         <!--gateway-->
@@ -36,6 +36,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <build>
+        <finalName>gateway9001</finalName>
+    </build>
 
 </project>

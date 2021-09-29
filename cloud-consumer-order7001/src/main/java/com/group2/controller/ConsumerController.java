@@ -52,8 +52,8 @@ public class ConsumerController {
     //@SentinelResource(value = "fallback",blockHandler = "blockHandler") //blockHandler只负责sentinel控制台配置违规
     @SentinelResource(value = "fallback", fallback = "handlerFallback", blockHandler = "blockHandler",
             exceptionsToIgnore = {IllegalArgumentException.class})
-    public CommonResult fallback(@PathVariable Long id) {
-        CommonResult result = paymentService.getPaymentById(id);
+    public CommonResult<Payment> fallback(@PathVariable Long id) {
+        CommonResult<Payment> result = paymentService.getPaymentById(id);
         if (id == 4) {
             throw new IllegalArgumentException("IllegalArgumentException,非法参数异常....");
         } else if (result.getData() == null) {
@@ -63,13 +63,13 @@ public class ConsumerController {
     }
 
     //本例是fallback
-    public CommonResult handlerFallback(@PathVariable Long id, Throwable e) {
+    public CommonResult<Payment> handlerFallback(@PathVariable Long id, Throwable e) {
         Payment payment = new Payment(id, "null");
         return new CommonResult<>(444, "兜底异常handlerFallback,exception内容  " + e.getMessage(), payment);
     }
 
     //本例是blockHandler
-    public CommonResult blockHandler(@PathVariable Long id, BlockException blockException) {
+    public CommonResult<Payment> blockHandler(@PathVariable Long id, BlockException blockException) {
         Payment payment = new Payment(id, "null");
         return new CommonResult<>(445, "blockHandler-sentinel限流,无此流水: blockException  " + blockException.getMessage(), payment);
     }

@@ -1,5 +1,7 @@
 package com.group2.controller;
 
+import com.group2.entities.CommonResult;
+import com.group2.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -39,6 +41,12 @@ public class PaymentController {
 
     @GetMapping(value = "/payment/nacos/{id}")
     public String getPayment(@PathVariable("id") Long id) {
-        return "nacos registry, serverPort: " + serverPort + ", id" + id;
+        return "from serverPort: " + serverPort + ", id: " + id;
     }
+
+    @GetMapping(value = "/payment/get/{id}")
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
+        return new CommonResult<>(200, "查询from 8002");
+    }
+
 }
