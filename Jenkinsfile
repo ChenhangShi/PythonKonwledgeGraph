@@ -1,15 +1,18 @@
 pipeline {
-  agent any
+  agent {
+    node {
+        label 'maven'
+    }
+  }
 
   stages {
-    stage('拉取代码') {
+    stage('pull code') {
       steps {
         git(url: 'http://212.129.149.40/181250124_2/backend-2.git', credentialsId: 'GitLab212.129.149.40', branch: 'feature-cloud-ypx_try', changelog: true, poll: false)
-        sh 'echo 正在构建 $PROJECT_NAME  版本号：$PROJECT_VERSION 将会提交给 $REGISTRY 镜像仓库'
+        sh 'echo build: $PROJECT_NAME, version：$PROJECT_VERSION, push to hub: $REGISTRY'
         container('maven') {
           sh 'mvn clean install -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml'
         }
-
       }
     }
 //     stage('sonar代码质量分析') {
