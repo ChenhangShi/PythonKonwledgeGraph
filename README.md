@@ -41,3 +41,4 @@
 ## Jenkins
 
 - 安装密码`5facfb8ac3a842478665da07fa13e6ea` `This may also be found at: /var/jenkins_home/secrets/initialAdminPassword`
+- 容器运行时挂载maven`docker run -v /var/run/docker.sock:/var/run/docker.sock -v /opt/maven/apache-maven-3.6.3:/usr/local/maven --user=root -p 8080:8080 --name jenkins -d jenkinsci/blueocean`
