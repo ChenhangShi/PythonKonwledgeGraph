@@ -37,4 +37,7 @@
 
 - `docker build -f Dockerfile -t docker.io/group2/gateway:0.0.1 .`
 - `docker run -d --name gateway -p 9001:9001 group2/gateway:0.0.1`
-- 381-10-54
+
+## Jenkins
+
+- 安装密码`5facfb8ac3a842478665da07fa13e6ea` `This may also be found at: /var/jenkins_home/secrets/initialAdminPassword`
