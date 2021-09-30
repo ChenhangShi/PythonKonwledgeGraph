@@ -70,13 +70,13 @@ pipeline {
   }
   environment {
     DOCKER_CREDENTIAL_ID = 'aliyun-hub-id'
-    GITEE_CREDENTIAL_ID = 'GitLab212.129.149.40'
-    KUBECONFIG_CREDENTIAL_ID = 'demo-kubeconfig'
     REGISTRY = 'registry.cn-hangzhou.aliyuncs.com'
     DOCKERHUB_NAMESPACE = 'group_2'
+    GITEE_CREDENTIAL_ID = 'GitLab212.129.149.40'
+    BRANCH_NAME = 'feature-cloud-ypx_try'
     GITLAB_ACCOUNT = '181250172'
     SONAR_CREDENTIAL_ID = 'sonar-qube'
-    BRANCH_NAME = 'feature-cloud-ypx_try'
+    KUBECONFIG_CREDENTIAL_ID = 'demo-kubeconfig'
   }
 
   parameters {
