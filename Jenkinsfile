@@ -34,7 +34,7 @@ pipeline {
 //
 //       }
 //     }
-    stage('构建镜像-推送镜像') {
+    stage('build & push') {
       steps {
         container('maven') {
           sh 'mvn -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean package'
@@ -44,9 +44,7 @@ pipeline {
             sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
             sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
           }
-
         }
-
       }
     }
 //     stage('部署到k8s') {
@@ -90,7 +88,7 @@ pipeline {
   }
 
   parameters {
-    string(name: 'PROJECT_VERSION', defaultValue: 'v0.0Beta', description: '项目版本')
-    string(name: 'PROJECT_NAME', defaultValue: 'cloud-gateway-gateway9001', description: '构建模块')
+    string(name: 'PROJECT_VERSION', defaultValue: 'v0.0Beta', description: 'project version')
+    string(name: 'PROJECT_NAME', defaultValue: 'cloud-gateway-gateway9001', description: 'choose module to build')
   }
 }
