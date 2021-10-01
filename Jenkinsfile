@@ -71,7 +71,7 @@ pipeline {
   environment {
     DOCKER_CREDENTIAL_ID = 'huaweicloud-hub-id'
     REGISTRY = 'swr.cn-north-4.myhuaweicloud.com'
-    DOCKERHUB_NAMESPACE = 'group_2'
+    DOCKERHUB_NAMESPACE = 'group2'
     GITEE_CREDENTIAL_ID = 'GitLab212.129.149.40'
     BRANCH_NAME = 'feature-cloud-ypx_try'
     GITLAB_ACCOUNT = '181250172'
