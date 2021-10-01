@@ -32,12 +32,8 @@ pipeline {
       steps {
           sh 'mvn -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean package'
           sh 'cd $PROJECT_NAME && docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
-
-          sh 'docker login registry.cn-hangzhou.aliyuncs.com -u 断线offline -p Ypxaliyun123'
-
           withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,credentialsId : "$DOCKER_CREDENTIAL_ID" ,)]) {
-//             sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
-
+            sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
             sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
             sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
           }
@@ -73,8 +69,8 @@ pipeline {
 //     }
   }
   environment {
-    DOCKER_CREDENTIAL_ID = 'aliyun-hub-id'
-    REGISTRY = 'registry.cn-hangzhou.aliyuncs.com'
+    DOCKER_CREDENTIAL_ID = 'huaweicloud-hub-id'
+    REGISTRY = 'swr.cn-north-4.myhuaweicloud.com'
     DOCKERHUB_NAMESPACE = 'group_2'
     GITEE_CREDENTIAL_ID = 'GitLab212.129.149.40'
     BRANCH_NAME = 'feature-cloud-ypx_try'
