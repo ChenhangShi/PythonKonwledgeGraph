@@ -40,15 +40,15 @@ pipeline {
       }
     }
 
-    stage('deploy') {
-      steps {
-        sh 'docker start nacos'
-        sh 'docker start sentinel'
-        sh 'docker rm -f "$PROJECT_NAME"'
-        sh 'docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
-        sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME'
-      }
-    }
+//     stage('deploy') {
+//       steps {
+//         sh 'docker start nacos'
+//         sh 'docker start sentinel'
+//         sh 'docker rm -f "$PROJECT_NAME"'
+//         sh 'docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
+//         sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME'
+//       }
+//     }
 //     stage('部署到k8s') {
 //       steps {
 //         input(id: "deploy-to-dev-$PROJECT_NAME", message: "是否将 $PROJECT_NAME 部署到集群中?")
