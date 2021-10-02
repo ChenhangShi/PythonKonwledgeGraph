@@ -4,15 +4,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 101.35.110.44:8848 # Nacos服务注册中心地址
+        server-addr: localhost:8848 # 配置Nacos地址
       config:
-        server-addr: 101.35.110.44:8848 # Nacos作为配置中心地址
+        server-addr: localhost:8848
+        namespace: 3301ff32-9c6b-4fc9-9921-4989cac28340 # 在nacos配置的命名空间
         file-extension: yaml # 指定yaml格式的配置
-#        group: DEV_GROUP
-#        namespace: 7d8f0f5a-6a53-4785-9686-dd460158e5d4
     sentinel:
       transport:
-        dashboard: 101.35.110.44:8858 # 配置Sentinel dashboard地址
+        dashboard: localhost:8858 # 配置Sentinel dashboard地址
         port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
 management:
   endpoints:

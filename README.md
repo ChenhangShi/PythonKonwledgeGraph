@@ -15,13 +15,15 @@
 - docker端口、文件夹映射，以mysql为例`docker run -p 3306:3306 --name mysql -v /mydata/mysql/log:/var/log/mysql -v /mydata/mysql/data:/var/lib/mysql -v /mydata/mysql/conf:/etc/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7`
 - docker进入某个容器，以mysql为例`docker exec -it mysql /bin/bash`
 - docker的`mysql:5.7`的密码是`!@#$abcd`
+- nacos配置的时间顺序：bootstrap->application->本地依据环境的配置->nacos中心的配置，后面的配置可以覆盖前面的配置
 
 `docker run -p 8848:8848 --name nacos -v /mydata/nacos/:/home/nacos --env MODE=standalone -d nacos/nacos-server:1.1.4`
 ## todo
-- 父工程pom不知道一些依赖、build插件、profiles怎么玩
 - nacos集群没有做,目前的MODE=standalone
-- 服务器搞docker来装需要的服务
-- zipkin要开服务
+- zipkin还没使用
+- docker容器会莫名关闭，目前看来原因是内存不够，
+- 把所有服务都部署，测试一下，尝试nginx代理
+- nginx代理网关，看下智能问答
 
 ## done
 - sentinel服务降级、nacos注册、配置、服务总线在cloud-common
@@ -33,12 +35,13 @@
 - 开启gateway网关
 - 开启provider和consumer
 
-## 服务的docker
-
-- `docker build -f Dockerfile -t docker.io/group2/gateway:0.0.1 .`
-- `docker run -d --name gateway -p 9001:9001 group2/gateway:0.0.1`
-
 ## Jenkins
 
-- 安装密码`5facfb8ac3a842478665da07fa13e6ea` `This may also be found at: /var/jenkins_home/secrets/initialAdminPassword`
-- 容器运行时挂载maven`docker run -v /var/run/docker.sock:/var/run/docker.sock -v /opt/maven/apache-maven-3.6.3:/usr/local/maven --user=root -p 8080:8080 --name jenkins -d jenkinsci/blueocean`
+- 容器运行时挂载maven、jdk`docker run -d -p 8080:8080 -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /opt/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk -v /etc/localtime:/etc/localtime --name jenkins jenkinsci/blueocean`
+- 容器运行jenkins，遇到的坑
+    - maven要另外挂载
+    - jdk忘记挂载就另外安装
+    - 使其能运行docker
+    - mvn找不到，除了要容器内配置，jenkins配置，jenkins控制台的环境变量也要写
+    - 阿里云用户名有中文，jenkins系统编码不是utf8，导致无法登录
+    
