@@ -4,7 +4,8 @@ pipeline {
   stages {
     stage('pull code') {
       steps {
-        git(url: 'http://212.129.149.40/181250124_2/backend-2.git', credentialsId: 'GitLab212.129.149.40', branch: 'feature-cloud-ypx_try', changelog: true, poll: false)
+        checkout scm
+//         git(url: 'http://212.129.149.40/181250124_2/backend-2.git', credentialsId: 'GitLab212.129.149.40', branch: 'feature-cloud-ypx_try', changelog: true, poll: false)
         sh 'echo build: $PROJECT_NAME, version: $PROJECT_VERSION, push to hub: $REGISTRY'
         sh 'mvn clean install -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml'
       }
@@ -40,15 +41,15 @@ pipeline {
       }
     }
 
-//     stage('deploy') {
-//       steps {
-//         sh 'docker start nacos'
-//         sh 'docker start sentinel'
-//         sh 'docker rm -f "$PROJECT_NAME"'
-//         sh 'docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
-//         sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME'
-//       }
-//     }
+    stage('deploy') {
+      steps {
+        sh 'docker start nacos'
+        sh 'docker start sentinel'
+        sh 'docker rm -f "$PROJECT_NAME"'
+        sh 'docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
+        sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME'
+      }
+    }
 //     stage('部署到k8s') {
 //       steps {
 //         input(id: "deploy-to-dev-$PROJECT_NAME", message: "是否将 $PROJECT_NAME 部署到集群中?")
@@ -56,7 +57,7 @@ pipeline {
 //       }
 //     }
 
-//     stage('发布版本'){
+//     stage('release with tag'){
 //       when{
 //         expression{
 //           return params.PROJECT_VERSION =~ /v.*/
@@ -64,14 +65,14 @@ pipeline {
 //       }
 //       steps {
 //           container ('maven') {
-//             input(id: 'release-image-with-tag', message: '发布当前版本镜像吗?')
+//             input(id: 'release-image-with-tag', message: 'sure to release this version of image?')
 //             sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
 //             sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
-//             withCredentials([usernamePassword(credentialsId: "$GITEE_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-//                 sh 'git config --global user.email "534096094@qq.com" '
-//                 sh 'git config --global user.name "leifengyang" '
+//             withCredentials([usernamePassword(credentialsId: "$GITLAB_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+//                 sh 'git config --global user.email "181250172@smail.nju.edu.cn" '
+//                 sh 'git config --global user.name "YangPeixin" '
 //                 sh 'git tag -a $PROJECT_NAME-$PROJECT_VERSION -m "$PROJECT_VERSION" '
-//                 sh 'git push http://$GIT_USERNAME:$GIT_PASSWORD@gitee.com/$GITEE_ACCOUNT/gulimall.git --tags --ipv4'
+//                 sh 'git push http://$GIT_USERNAME:$GIT_PASSWORD@$GITLAB_URL --tags --ipv4'
 //             }
 //
 //         }
@@ -82,8 +83,8 @@ pipeline {
     DOCKER_CREDENTIAL_ID = 'aliyun-hub-id'
     REGISTRY = 'registry.cn-hangzhou.aliyuncs.com'
     DOCKERHUB_NAMESPACE = 'group2'
-    GITEE_CREDENTIAL_ID = 'GitLab212.129.149.40'
-    BRANCH_NAME = 'feature-cloud-ypx_try'
+    GITLAB_CREDENTIAL_ID = 'GitLab212.129.149.40'
+    GITLAB_URL = '212.129.149.40/181250124_2/backend-2.git'
     GITLAB_ACCOUNT = '181250172'
     SONAR_CREDENTIAL_ID = 'sonar-qube'
     KUBECONFIG_CREDENTIAL_ID = 'demo-kubeconfig'
