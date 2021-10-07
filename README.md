@@ -34,14 +34,20 @@
 ## 部署
 - 开启gateway网关
 - 开启provider和consumer
+- 其他容器挂载的目录一定别忘了，
 
 ## Jenkins
 
-- 容器运行时挂载maven、jdk`docker run -d -p 8080:8080 -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /opt/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk -v /etc/localtime:/etc/localtime --name jenkins jenkinsci/blueocean`
+- `docker run -d -p 8080:8080 -v /mydata/nginx:/var/nginx_home -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /opt/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk -v /opt/nodejs/node-v14.18.0-linux-x64:/usr/local/nodejs -v /etc/localtime:/etc/localtime --name jenkins jenkins_bk2`
+- 除此以外，容器内的/root/.bashrc环境变量要配置
 - 容器运行jenkins，遇到的坑
-    - maven要另外挂载
+    - maven等要另外挂载
     - jdk忘记挂载就另外安装
-    - 使其能运行docker
-    - mvn找不到，除了要容器内配置，jenkins配置，jenkins控制台的环境变量也要写
+    - 使其能运行docker，挂载见上面的命令
+    - mvn找不到
+      - 除了要容器内配置（环境变量`/etc/profile` `/root/.bashrc`）
+      - jenkins配置（插件）
+      - jenkins控制台的环境变量也要写
     - 阿里云用户名有中文，jenkins系统编码不是utf8，导致无法登录
-    
+    - 外部的文件是root权限，其他用户想要操作，就修改文件的权限
+
