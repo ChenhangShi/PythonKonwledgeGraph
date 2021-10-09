@@ -7,7 +7,7 @@ spring:
         server-addr: localhost:8848 # 配置Nacos地址
       config:
         server-addr: localhost:8848
-        namespace: 3301ff32-9c6b-4fc9-9921-4989cac28340 # 在nacos配置的命名空间
+        namespace: 72bc4d8d-7bd5-432c-9230-8c6964175dff # 在nacos配置的命名空间
         file-extension: yaml # 指定yaml格式的配置
     sentinel:
       transport:

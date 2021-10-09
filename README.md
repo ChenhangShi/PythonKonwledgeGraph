@@ -17,7 +17,8 @@
 - docker的`mysql:5.7`的密码是`!@#$abcd`
 - nacos配置的时间顺序：bootstrap->application->本地依据环境的配置->nacos中心的配置，后面的配置可以覆盖前面的配置
 
-`docker run -p 8848:8848 --name nacos -v /mydata/nacos/:/home/nacos --env MODE=standalone -d nacos/nacos-server:1.1.4`
+`docker run -d -p 8848:8848  --env MODE=standalone --name nacos registry.cn-hangzhou.aliyuncs.com/group2/nacos_ypx`
+`docker run --name sentinel -d -p 8858:8858 -d bladex/sentinel-dashboard:1.7.0`
 ## todo
 - nacos集群没有做,目前的MODE=standalone
 - zipkin还没使用
@@ -38,7 +39,7 @@
 
 ## Jenkins
 
-- `docker run -d -p 8080:8080 -v /mydata/nginx:/var/nginx_home -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /opt/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk -v /opt/nodejs/node-v14.18.0-linux-x64:/usr/local/nodejs -v /etc/localtime:/etc/localtime --name jenkins jenkins_bk2`
+- `docker run -d -p 8080:8080 -v /mydata/nginx:/var/nginx_home -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/share/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.b08-0.el7_9.x86_64:/usr/local/jdk -v /usr/share/nodejs/node-v14.18.0-linux-x64:/usr/local/nodejs -v /etc/localtime:/etc/localtime --name jenkins registry.cn-hangzhou.aliyuncs.com/group2/jenkins_ypx`
 - 除此以外，容器内的/root/.bashrc环境变量要配置
 - 容器运行jenkins，遇到的坑
     - maven等要另外挂载
@@ -51,3 +52,6 @@
     - 阿里云用户名有中文，jenkins系统编码不是utf8，导致无法登录
     - 外部的文件是root权限，其他用户想要操作，就修改文件的权限
 
+## Nginx
+
+- `docker run --name nginx -d -p 80:80 -v /mydata/nginx/conf:/etc/nginx -v /mydata/nginx/html:/usr/share/nginx/html -v /mydata/nginx/logs:/var/log/nginx registry.cn-hangzhou.aliyuncs.com/group2/nginx_ypx:v1`
