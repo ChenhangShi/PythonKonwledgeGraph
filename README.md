@@ -39,7 +39,7 @@
 
 ## Jenkins
 
-- `docker run -d -p 8080:8080 -v /mydata/nginx:/var/nginx_home -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/share/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.b08-0.el7_9.x86_64:/usr/local/jdk -v /usr/share/nodejs/node-v14.18.0-linux-x64:/usr/local/nodejs -v /etc/localtime:/etc/localtime --name jenkins registry.cn-hangzhou.aliyuncs.com/group2/jenkins_ypx`
+- `docker run -d -p 8080:8080 -v /mydata/nginx:/var/nginx_home -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/share/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk -v /usr/share/nodejs/node-v14.18.0-linux-x64:/usr/local/nodejs -v /etc/localtime:/etc/localtime --name jenkins registry.cn-hangzhou.aliyuncs.com/group2/jenkins_ypx`
 - 除此以外，容器内的/root/.bashrc环境变量要配置
 - 容器运行jenkins，遇到的坑
     - maven等要另外挂载
