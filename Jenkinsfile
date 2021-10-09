@@ -7,7 +7,8 @@ pipeline {
         checkout scm
 //         git(url: 'http://212.129.149.40/181250124_2/backend-2.git', credentialsId: 'GitLab212.129.149.40', branch: 'feature-cloud-ypx_try', changelog: true, poll: false)
         sh 'echo build: $PROJECT_NAME, version: $PROJECT_VERSION, push to hub: $REGISTRY'
-        sh 'mvn clean install -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml'
+//         sh 'mvn clean install -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml'
+sh 'mvn clean install -Dmaven.test.skip=true'
       }
     }
 //     stage('sonar代码质量分析') {
