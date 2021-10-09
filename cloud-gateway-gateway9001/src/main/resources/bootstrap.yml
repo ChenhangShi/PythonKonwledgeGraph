@@ -4,9 +4,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848 # 配置Nacos地址
+        server-addr: 127.0.0.1:8848 # 配置Nacos地址
       config:
-        server-addr: localhost:8848
+        server-addr: 127.0.0.1:8848
         namespace: 26e594fc-73d0-48ad-a679-dda6033f4c35 # 在nacos配置的命名空间
         file-extension: yaml # 指定yaml格式的配置
     sentinel:
