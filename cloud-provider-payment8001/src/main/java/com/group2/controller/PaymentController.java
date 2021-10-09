@@ -24,6 +24,9 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
+    @Value("${spring.application.name}")
+    private String springApplicationName;
+
     @GetMapping("/testA")
     public String testA() {
         return "------testA";
@@ -37,7 +40,7 @@ public class PaymentController {
 
     @GetMapping(value = "/payment/nacos/{id}")
     public String getPayment(@PathVariable("id") Long id) {
-        return "from serverPort: " + serverPort + ", id: " + id;
+        return "from application: 8001" + ", id: " + id;
     }
 
     @PostMapping(value = "/payment/create")

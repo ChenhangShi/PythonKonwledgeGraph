@@ -41,7 +41,7 @@ public class PaymentController {
 
     @GetMapping(value = "/payment/nacos/{id}")
     public String getPayment(@PathVariable("id") Long id) {
-        return "from serverPort: " + serverPort + ", id: " + id;
+        return "from application: 8002" + ", id: " + id;
     }
 
     @GetMapping(value = "/payment/get/{id}")
