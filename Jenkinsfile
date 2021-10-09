@@ -32,22 +32,22 @@ pipeline {
     stage('build & push') {
       steps {
           sh 'mvn -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean package'
-          sh 'cd $PROJECT_NAME && docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
+          sh 'cd $PROJECT_NAME && sudo docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
           withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,credentialsId : "$DOCKER_CREDENTIAL_ID" ,)]) {
             sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
-            sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
-            sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
+            sh 'sudo docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
+            sh 'sudo docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:latest '
           }
       }
     }
 
     stage('deploy') {
       steps {
-        sh 'docker start nacos'
-        sh 'docker start sentinel'
-        sh 'docker rm -f "$PROJECT_NAME"'
-        sh 'docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
-        sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME'
+        sh 'sudo docker start nacos'
+        sh 'sudo docker start sentinel'
+        sh 'sudo docker rm -f "$PROJECT_NAME"'
+        sh 'sudo docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
+        sh 'sudo docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME'
       }
     }
 //     stage('部署到k8s') {
@@ -66,7 +66,7 @@ pipeline {
       steps {
 //             input(id: 'release-image-with-tag', message: 'sure to release this version of image?')
             sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
-            sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
+            sh 'sudo docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
             withCredentials([usernamePassword(credentialsId: "$GITLAB_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 sh 'git config --global user.email "181250xxx@smail.nju.edu.cn" '
                 sh 'git config --global user.name "GROUP2" '
