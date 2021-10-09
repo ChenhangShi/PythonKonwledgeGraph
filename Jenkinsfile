@@ -68,8 +68,8 @@ pipeline {
             sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
             sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION '
             withCredentials([usernamePassword(credentialsId: "$GITLAB_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                sh 'git config --global user.email "181250172@smail.nju.edu.cn" '
-                sh 'git config --global user.name "YangPeixin" '
+                sh 'git config --global user.email "181250xxx@smail.nju.edu.cn" '
+                sh 'git config --global user.name "GROUP2" '
                 sh 'git tag -a $PROJECT_NAME-$PROJECT_VERSION -m "$PROJECT_VERSION" '
                 sh 'git push http://$GIT_USERNAME:$GIT_PASSWORD@$GITLAB_URL --tags --ipv4'
             }
