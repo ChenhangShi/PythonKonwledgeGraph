@@ -46,7 +46,6 @@ pipeline {
         sh 'docker start nacos'
         sh 'docker start sentinel'
         sh 'docker rm -f "$PROJECT_NAME"'
-        sh 'docker rmi -f "$REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME"'
         sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION'
       }
     }
