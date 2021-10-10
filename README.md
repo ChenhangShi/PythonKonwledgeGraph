@@ -55,3 +55,9 @@
 ## Nginx
 
 - `docker run --name nginx -d -p 80:80 -v /mydata/nginx/conf:/etc/nginx -v /mydata/nginx/html:/usr/share/nginx/html -v /mydata/nginx/logs:/var/log/nginx registry.cn-hangzhou.aliyuncs.com/group2/nginx_ypx:v1`
+
+## 如果重启服务器
+
+- mysql启动`service mysql start`
+- docker启动`systemctl start docker`
+- 修改`/var/run/docker.sock`的权限chmod 666
