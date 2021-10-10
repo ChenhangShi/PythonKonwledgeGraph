@@ -56,7 +56,7 @@ pipeline {
 //       }
 //     }
 
-    stage('release with tag'){
+    stage('push images & release with tag'){
       when{
         expression{
           return params.PROJECT_VERSION =~ /v.*/
