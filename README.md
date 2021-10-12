@@ -17,8 +17,6 @@
 - docker的`mysql:5.7`的密码是`!@#$abcd`
 - nacos配置的时间顺序：bootstrap->application->本地依据环境的配置->nacos中心的配置，后面的配置可以覆盖前面的配置
 
-`docker run -d -p 8848:8848  --env MODE=standalone --name nacos registry.cn-hangzhou.aliyuncs.com/group2/nacos_ypx`
-`docker run --name sentinel -d -p 8858:8858 -d bladex/sentinel-dashboard:1.7.0`
 ## todo
 - nacos集群没有做,目前的MODE=standalone
 - zipkin还没使用
@@ -37,27 +35,3 @@
 - 开启provider和consumer
 - 其他容器挂载的目录一定别忘了，
 
-## Jenkins
-
-- `docker run -d -p 8080:8080 -v /mydata/nginx:/var/nginx_home -v /mydata/jenkins/data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/share/maven/apache-maven-3.6.3:/usr/local/maven -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk -v /usr/share/nodejs/node-v14.18.0-linux-x64:/usr/local/nodejs -v /etc/localtime:/etc/localtime --name jenkins registry.cn-hangzhou.aliyuncs.com/group2/jenkins_ypx`
-- 除此以外，容器内的/root/.bashrc环境变量要配置
-- 容器运行jenkins，遇到的坑
-    - maven等要另外挂载
-    - jdk忘记挂载就另外安装
-    - 使其能运行docker，挂载见上面的命令
-    - mvn找不到
-      - 除了要容器内配置（环境变量`/etc/profile` `/root/.bashrc`）
-      - jenkins配置（插件）
-      - jenkins控制台的环境变量也要写
-    - 阿里云用户名有中文，jenkins系统编码不是utf8，导致无法登录
-    - 外部的文件是root权限，其他用户想要操作，就修改文件的权限
-
-## Nginx
-
-- `docker run --name nginx -d -p 80:80 -v /mydata/nginx/conf:/etc/nginx -v /mydata/nginx/html:/usr/share/nginx/html -v /mydata/nginx/logs:/var/log/nginx registry.cn-hangzhou.aliyuncs.com/group2/nginx_ypx:v1`
-
-## 如果重启服务器
-
-- mysql启动`service mysql start`
-- docker启动`systemctl start docker`
-- 修改`/var/run/docker.sock`的权限chmod 666
