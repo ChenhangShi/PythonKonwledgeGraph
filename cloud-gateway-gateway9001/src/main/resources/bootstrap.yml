@@ -3,15 +3,10 @@ spring:
     name: cloud-gateway
   cloud:
     nacos:
-      discovery:
-        server-addr: 172.17.0.1:8848 # 配置Nacos地址
       config:
-        server-addr: 172.17.0.1:8848
-        namespace: 26e594fc-73d0-48ad-a679-dda6033f4c35 # 在nacos配置的命名空间
         file-extension: yaml # 指定yaml格式的配置
     sentinel:
       transport:
-        dashboard: 172.17.0.1:8858 # 配置Sentinel dashboard地址
         port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
     gateway:
       discovery:

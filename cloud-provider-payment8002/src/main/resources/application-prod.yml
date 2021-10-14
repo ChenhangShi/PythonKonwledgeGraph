@@ -3,3 +3,14 @@ server:
 
 config:
   info: from file config
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.17.0.1:8848 # 配置Nacos地址
+      config:
+        server-addr: 172.17.0.1:8848
+    sentinel:
+      transport:
+        dashboard: 172.17.0.1:8858 # 配置Sentinel dashboard地址
