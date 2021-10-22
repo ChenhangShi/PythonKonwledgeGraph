@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: graph-service
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml # 指定yaml格式的配置
+    sentinel:
+      transport:
+        port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
+      datasource:
+        ds1: # 把sentinel规则持久化到nacos
+          nacos:
+            dataId: ${spring.application.name}
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

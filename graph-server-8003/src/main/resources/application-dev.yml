@@ -1,0 +1,18 @@
+server:
+  port: 8003
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # 配置Nacos地址
+      config:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8858 # 配置Sentinel dashboard地址
+  data:
+    neo4j:
+      uri: bolt://localhost:7687
+      username: neo4j
+      password: root
