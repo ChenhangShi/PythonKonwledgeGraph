@@ -1,5 +1,6 @@
 package com.group2.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.group2.entities.Payment;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,9 +9,5 @@ import org.apache.ibatis.annotations.Param;
  * @create 2021-09-25 11:32
  */
 
-public interface PaymentService {
-
-    public int create(Payment payment);
-
-    public Payment getPaymentById(@Param("id") Long id);
+public interface PaymentService extends IService<Payment> {
 }
