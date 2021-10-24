@@ -40,8 +40,8 @@ public class ConsumerController {
 //        return restTemplate.postForObject(providerUrl + "/payment/create", payment, CommonResult.class);
     }
 
-    @GetMapping("/consumer/payment/get/{id}")
-    public CommonResult<Payment> getPayment(@PathVariable("id") Long id) {
+    @GetMapping("payment")
+    public CommonResult<Payment> getPayment(@RequestParam("id") Long id) {
         return paymentService.getPaymentById(id);
 //        return restTemplate.getForObject(providerUrl + "/payment/get/" + id, CommonResult.class);
     }

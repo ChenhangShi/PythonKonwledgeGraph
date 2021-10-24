@@ -2,7 +2,6 @@ package com.group2.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group2.entities.Payment;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * @author YangPx

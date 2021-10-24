@@ -44,9 +44,8 @@ public class PaymentController {
         return "from application: 8002" + ", id: " + id;
     }
 
-    @GetMapping(value = "/payment/get/{id}")
-    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
-        return new CommonResult<>(200, "查询from 8002");
+    @GetMapping(value = "/payment")
+    public CommonResult<Payment> getPaymentById(@RequestParam("id") Long id) {
+        return new CommonResult<>(200, "get payment from 8002, id=" + id);
     }
-
 }

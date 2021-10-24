@@ -2,6 +2,7 @@ package com.group2.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.group2.entities.CommonResult;
 import com.group2.entities.Payment;
 import com.group2.service.PaymentService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author YangPx
@@ -62,6 +64,20 @@ public class PaymentController {
             return new CommonResult<>(200, "查询成功", byId);
         } else {
             return new CommonResult<>(410, "没有该记录，查询失败");
+        }
+    }
+
+    @GetMapping(value = "/table")
+    public CommonResult getTable(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+        int pageSize = 2;
+        Page<Payment> paymentPage = new Page<>(pn, pageSize);
+        Page<Payment> page = paymentService.page(paymentPage, null);
+
+        log.info("****查询结果" + page);
+        if (page != null) {
+            return new CommonResult<>(200, "查询成功", page.getRecords());
+        } else {
+            return new CommonResult<>(410, "没有数据");
         }
     }
 }
