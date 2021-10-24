@@ -21,7 +21,8 @@ spring:
             groupId: DEFAULT_GROUP
             data-type: json
             rule-type: flow
-
+#  redis:
+#    url: redis://offline:Ypx123456@r-bp1syyjqposds431iipd.redis.rds.aliyuncs.com:6379
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   type-aliases-package: com.group2.entities    # 所有Entity别名类所在包，xml就方便找

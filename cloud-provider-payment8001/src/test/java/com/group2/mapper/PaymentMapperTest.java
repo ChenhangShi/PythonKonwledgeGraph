@@ -21,6 +21,9 @@ public class PaymentMapperTest {
     @Autowired
     private PaymentMapper paymentMapper;
 
+//    @Autowired
+//    StringRedisTemplate stringRedisTemplate;
+
     @Test
     public void testSelect() {
         Payment payment = paymentMapper.selectById(31);
@@ -29,5 +32,12 @@ public class PaymentMapperTest {
 //        List<Payment> userList = paymentMapper.selectList(null);
 //        userList.forEach(System.out::println);
     }
+
+//    @Test
+//    public void testRedis() {
+//        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+//        operations.set("hello", "world");
+//        log.info(operations.get("hello"));
+//    }
 
 }

@@ -31,4 +31,8 @@ class PaymentServiceTest {
         log.info("****查询结果" + page.getCurrent());
         log.info("****查询结果" + page.getSize());
     }
+
+    public void test2(){
+        paymentService.removeById(1);
+    }
 }
