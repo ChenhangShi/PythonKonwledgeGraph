@@ -1,7 +1,5 @@
 package com.group2.controller;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.group2.entities.CommonResult;
 import com.group2.entities.Payment;
@@ -74,13 +72,13 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/payment")
-    public CommonResult<Payment> getAllPayments() {
+    public CommonResult getAllPayments() {
         List<Payment> payments = paymentService.list();
         log.info("****查询结果" + payments);
         if (payments != null) {
             return new CommonResult(200, "查询成功from application: 8001", payments);
         } else {
-            return new CommonResult<>(410, "没有该记录，查询失败from application: 8001");
+            return new CommonResult(410, "没有该记录，查询失败from application: 8001");
         }
     }
 

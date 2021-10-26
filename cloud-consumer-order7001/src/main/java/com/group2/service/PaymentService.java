@@ -23,5 +23,5 @@ public interface PaymentService {
     CommonResult<Payment> getPaymentById(@PathVariable("id") Long id);
 
     @GetMapping(value = "/payment")
-    CommonResult<Payment> getAllPaymentById();
+    CommonResult getAllPayment();
 }

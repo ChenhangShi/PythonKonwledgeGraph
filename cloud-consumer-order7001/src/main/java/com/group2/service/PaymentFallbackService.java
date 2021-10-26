@@ -23,7 +23,7 @@ public class PaymentFallbackService implements PaymentService {
     }
 
     @Override
-    public CommonResult<Payment> getAllPaymentById() {
+    public CommonResult getAllPayment() {
         return new CommonResult(444, "兜底from consumer /payment");
     }
 }

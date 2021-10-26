@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * @author YangPx
@@ -39,13 +41,13 @@ public class PaymentController {
         return "------testB";
     }
 
-    @GetMapping(value = "/payment/nacos/{id}")
-    public String getPayment(@PathVariable("id") Long id) {
-        return "from application: 8002" + ", id: " + id;
-    }
-
     @GetMapping(value = "/payment/{id}")
     public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         return new CommonResult<>(200, "get payment from 8002, id=" + id);
+    }
+
+    @GetMapping(value = "/payment")
+    public CommonResult getAllPayments() {
+        return new CommonResult(200, "get all payments from 8002");
     }
 }
