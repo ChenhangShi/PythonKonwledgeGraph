@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignClient(value = "${service-url.nacos-provider-service}", fallback = PaymentFallbackService.class)
 public interface PaymentService {
-    @GetMapping(value = "/payment/nacos/{id}")
-    String getPayment(@PathVariable("id") Long id);
 
-    @PostMapping(value = "/payment/create")
-    CommonResult<Payment> create(@RequestBody Payment payment);
+    @PostMapping(value = "/payment")
+    CommonResult<Payment> insert(@RequestBody Payment payment);
 
-    @GetMapping(value = "/payment/get/{id}")
+    @GetMapping(value = "/payment/{id}")
     CommonResult<Payment> getPaymentById(@PathVariable("id") Long id);
+
+    @GetMapping(value = "/payment")
+    CommonResult getAllPayment();
+
+    @GetMapping(value = "/configinfo")
+    CommonResult getConfiginfo();
 }

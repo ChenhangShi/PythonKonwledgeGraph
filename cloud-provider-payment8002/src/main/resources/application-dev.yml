@@ -2,15 +2,22 @@ server:
   port: 8002
 
 config:
-  info: from file config
+  info: from local file application-dev
 
 spring:
+  application:
+    name: cloud-provider-devservice
   cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848 # 配置Nacos地址
-      config:
-        server-addr: localhost:8848
     sentinel:
       transport:
-        dashboard: localhost:8858 # 配置Sentinel dashboard地址
+        dashboard: 49.234.60.188:8858 # 配置Sentinel dashboard地址
+        port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+# 上面对应Data ID：cloud-provider-service-dev.yaml

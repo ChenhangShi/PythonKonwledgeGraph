@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * @author YangPx
@@ -14,19 +16,14 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Slf4j
-@RefreshScope // 支持Nacos的动态刷新
+@RefreshScope
 public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
 
     @Value("${config.info}")
-    private String configInfo;
-
-    @GetMapping("/config/info")
-    public String getConfigInfo() {
-        return configInfo;
-    }
+    private String configinfo;
 
     @GetMapping("/testA")
     public String testA() {
@@ -39,14 +36,18 @@ public class PaymentController {
         return "------testB";
     }
 
-    @GetMapping(value = "/payment/nacos/{id}")
-    public String getPayment(@PathVariable("id") Long id) {
-        return "from application: 8002" + ", id: " + id;
-    }
-
-    @GetMapping(value = "/payment/get/{id}")
+    @GetMapping(value = "/payment/{id}")
     public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
-        return new CommonResult<>(200, "查询from 8002");
+        return new CommonResult<>(200, "get payment from 8002, id=" + id);
     }
 
+    @GetMapping(value = "/payment")
+    public CommonResult getAllPayments() {
+        return new CommonResult(200, "get all payments from 8002");
+    }
+
+    @GetMapping("/configinfo")
+    public CommonResult getConfiginfo() {
+        return new CommonResult(200, "config info from application: 8002", configinfo);
+    }
 }

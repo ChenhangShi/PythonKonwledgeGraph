@@ -1,32 +1,13 @@
 spring:
   application:
     name: cloud-provider-service
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-    driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-    username: root
-    password: root
   cloud:
     nacos:
+      discovery:
+        server-addr: 49.234.60.188:8848
+#        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce # dev
+        namespace: f059b933-a68c-4633-afb0-c28d7478fb30 # prod
       config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
         file-extension: yaml # 指定yaml格式的配置
-    sentinel:
-      transport:
-        port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
-      datasource:
-        ds1: # 把sentinel规则持久化到nacos
-          nacos:
-            dataId: ${spring.application.name}
-            groupId: DEFAULT_GROUP
-            data-type: json
-            rule-type: flow
-
-mybatis:
-  mapperLocations: classpath:mapper/*.xml
-  type-aliases-package: com.group2.entities    # 所有Entity别名类所在包，xml就方便找
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'

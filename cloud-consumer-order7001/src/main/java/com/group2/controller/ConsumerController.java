@@ -7,6 +7,7 @@ import com.group2.entities.Payment;
 import com.group2.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @Slf4j
+@RefreshScope
 public class ConsumerController {
 
     @Value("${service-url.nacos-provider-service}")
@@ -29,21 +31,28 @@ public class ConsumerController {
     @Resource
     private PaymentService paymentService;
 
-    @GetMapping(value = "/consumer/payment/nacos/{id}")
-    public String paymentInfo(@PathVariable("id") Long id) {
-        return paymentService.getPayment(id);
-    }
-
-    @PostMapping("/consumer/payment/create")
+    @PostMapping("/payment")
     public CommonResult<Payment> create(Payment payment) {
-        return paymentService.create(payment);
+        return paymentService.insert(payment);
 //        return restTemplate.postForObject(providerUrl + "/payment/create", payment, CommonResult.class);
     }
 
-    @GetMapping("/consumer/payment/get/{id}")
-    public CommonResult<Payment> getPayment(@PathVariable("id") Long id) {
+    @GetMapping("/payment")
+    public CommonResult getAllPayment() {
+        log.info("进入");
+        return paymentService.getAllPayment();
+//        return restTemplate.getForObject(providerUrl + "/payment/get/" + id, CommonResult.class);
+    }
+
+    @GetMapping("/payment/{id}")
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         return paymentService.getPaymentById(id);
 //        return restTemplate.getForObject(providerUrl + "/payment/get/" + id, CommonResult.class);
+    }
+
+    @GetMapping("/configinfo")
+    public CommonResult getConfiginfo() {
+        return new CommonResult(200, "config info", paymentService.getConfiginfo());
     }
 
     @RequestMapping("/consumer/fallback/{id}")
