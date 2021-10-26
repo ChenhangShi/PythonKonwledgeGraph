@@ -6,7 +6,7 @@ config:
 
 spring:
   application:
-    name: cloud-provider-service-dev
+    name: cloud-provider-service
   cloud:
     nacos:
       discovery:
