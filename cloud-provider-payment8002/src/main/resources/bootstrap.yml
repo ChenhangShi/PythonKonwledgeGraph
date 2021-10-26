@@ -1,3 +1,13 @@
 spring:
   application:
     name: cloud-provider-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.60.188:8848
+#        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce # dev
+        namespace: f059b933-a68c-4633-afb0-c28d7478fb30 # prod
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        file-extension: yaml # 指定yaml格式的配置

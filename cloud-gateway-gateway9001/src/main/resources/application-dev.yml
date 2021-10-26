@@ -2,16 +2,8 @@ server:
   port: 9001
 spring:
   application:
-    name: cloud-gateway-dev
+    name: cloud-devgateway
   cloud:
-    nacos:
-      discovery:
-        server-addr: 49.234.60.188:8848
-        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce # dev命名空间
-      config:
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        namespace: ${spring.cloud.nacos.discovery.namespace} # dev命名空间
-        file-extension: yaml
     sentinel:
       transport:
         dashboard: 49.234.60.188:8858
@@ -22,19 +14,22 @@ spring:
           enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
       routes:
         - id: consumer_get_payment
-          uri: lb://cloud-consumer-service-dev # 匹配后提供服务的动态路由地址
+          uri: lb://cloud-consumer-devservice # 匹配后提供服务的动态路由地址
           predicates:
             - Path=/payment/**
 
         - id: consumer_payment # payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
-          uri: lb://cloud-consumer-service-dev         #匹配后提供服务的路由地址
+          uri: lb://cloud-consumer-devservice         #匹配后提供服务的路由地址
           predicates:
             - Path=/payment        # 断言，路径相匹配的进行路由
             - After=2020-02-21T15:51:37.485+08:00[Asia/Shanghai]
         #            - Cookie=username,zzyy
         #            - Header=X-Request-Id, \d+  # 请求头要有X-Request-Id属性并且值为整数的正则表达式
-
+        - id: remote_config_info
+          uri: lb://cloud-consumer-devservice
+          predicates:
+            - Path=/configinfo
         - id: flask_demo
-          uri: lb://cloud-flask-service-dev
+          uri: lb://cloud-flask-devservice
           predicates:
             - Path=/flask/**

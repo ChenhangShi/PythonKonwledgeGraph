@@ -26,4 +26,9 @@ public class PaymentFallbackService implements PaymentService {
     public CommonResult getAllPayment() {
         return new CommonResult(444, "兜底from consumer /payment");
     }
+
+    @Override
+    public CommonResult getConfiginfo() {
+        return new CommonResult(444, "兜底from consumer /configinfo");
+    }
 }

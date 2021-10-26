@@ -11,14 +11,6 @@ spring:
     username: root
     password: root
   cloud:
-    nacos:
-      discovery:
-        server-addr: 172.17.0.1:8848
-        namespace: f059b933-a68c-4633-afb0-c28d7478fb30
-      config:
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        namespace: ${spring.cloud.nacos.discovery.namespace}
-        file-extension: yaml # 指定yaml格式的配置
     sentinel:
       transport:
         dashboard: 172.17.0.1:8858 # 配置Sentinel dashboard地址

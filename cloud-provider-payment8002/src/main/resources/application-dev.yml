@@ -2,20 +2,12 @@ server:
   port: 8002
 
 config:
-  info: from file config
+  info: from local file application-dev
 
 spring:
   application:
-    name: cloud-provider-service-dev
+    name: cloud-provider-devservice
   cloud:
-    nacos:
-      discovery:
-        server-addr: 49.234.60.188:8848
-        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce
-      config:
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        namespace: ${spring.cloud.nacos.discovery.namespace}
-        file-extension: yaml # 指定yaml格式的配置
     sentinel:
       transport:
         dashboard: 49.234.60.188:8858 # 配置Sentinel dashboard地址

@@ -24,4 +24,7 @@ public interface PaymentService {
 
     @GetMapping(value = "/payment")
     CommonResult getAllPayment();
+
+    @GetMapping(value = "/configinfo")
+    CommonResult getConfiginfo();
 }

@@ -36,16 +36,23 @@ public class ConsumerController {
         return paymentService.insert(payment);
 //        return restTemplate.postForObject(providerUrl + "/payment/create", payment, CommonResult.class);
     }
+
     @GetMapping("/payment")
     public CommonResult getAllPayment() {
         log.info("进入");
         return paymentService.getAllPayment();
 //        return restTemplate.getForObject(providerUrl + "/payment/get/" + id, CommonResult.class);
     }
+
     @GetMapping("/payment/{id}")
     public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         return paymentService.getPaymentById(id);
 //        return restTemplate.getForObject(providerUrl + "/payment/get/" + id, CommonResult.class);
+    }
+
+    @GetMapping("/configinfo")
+    public CommonResult getConfiginfo() {
+        return new CommonResult(200, "config info", paymentService.getConfiginfo());
     }
 
     @RequestMapping("/consumer/fallback/{id}")

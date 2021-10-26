@@ -23,12 +23,7 @@ public class PaymentController {
     private String serverPort;
 
     @Value("${config.info}")
-    private String configInfo;
-
-    @GetMapping("/config/info")
-    public String getConfigInfo() {
-        return configInfo;
-    }
+    private String configinfo;
 
     @GetMapping("/testA")
     public String testA() {
@@ -49,5 +44,10 @@ public class PaymentController {
     @GetMapping(value = "/payment")
     public CommonResult getAllPayments() {
         return new CommonResult(200, "get all payments from 8002");
+    }
+
+    @GetMapping("/configinfo")
+    public CommonResult getConfiginfo() {
+        return new CommonResult(200, "config info from application: 8002", configinfo);
     }
 }

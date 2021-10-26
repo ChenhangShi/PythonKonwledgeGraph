@@ -26,6 +26,9 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
+    @Value("${config.info}")
+    private String configinfo;
+
     @Value("${spring.application.name}")
     private String springApplicationName;
 
@@ -80,6 +83,11 @@ public class PaymentController {
         } else {
             return new CommonResult(410, "没有该记录，查询失败from application: 8001");
         }
+    }
+
+    @GetMapping("/configinfo")
+    public CommonResult getConfiginfo() {
+        return new CommonResult(200, "config info from application: 8001", configinfo);
     }
 
     @GetMapping(value = "/payment/{id}")
