@@ -8,6 +8,7 @@ import com.group2.entities.Payment;
 import com.group2.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
+@RefreshScope
 public class PaymentController {
     @Resource
     private PaymentService paymentService;
@@ -40,13 +42,8 @@ public class PaymentController {
         return "------testB";
     }
 
-    @GetMapping(value = "/payment/nacos/{id}")
-    public String getPayment(@PathVariable("id") Long id) {
-        return "from application: 8001" + ", id: " + id;
-    }
-
     @PostMapping(value = "/payment")
-    public CommonResult<Integer> create(@RequestBody Payment payment) {
+    public CommonResult<Integer> insertPayment(@RequestBody Payment payment) {
         boolean b = paymentService.save(payment);
         log.info("****插入成功" + b);
         if (b) {
@@ -56,16 +53,48 @@ public class PaymentController {
         }
     }
 
-    @GetMapping(value = "/payment")
-    public CommonResult<Payment> getPaymentById(@RequestParam("id") Long id) {
-        Payment byId = paymentService.getById(id);
-        log.info("****查询结果" + byId);
-        if (byId != null) {
-            return new CommonResult<>(200, "查询成功", byId);
+    @DeleteMapping(value = "/payment/{id}")
+    public CommonResult<Payment> deletePayment(@PathVariable Long id) {
+        boolean b = paymentService.removeById(id);
+        if (b) {
+            return new CommonResult<>(200, "删除成功");
         } else {
             return new CommonResult<>(410, "没有该记录，查询失败");
         }
     }
+
+    @PutMapping(value = "/payment")
+    public CommonResult<Payment> updatePayment(@RequestBody Payment payment) {
+        boolean b = paymentService.updateById(payment);
+        if (b) {
+            return new CommonResult<>(200, "更新成功");
+        } else {
+            return new CommonResult<>(410, "没有该记录，查询失败");
+        }
+    }
+
+    @GetMapping(value = "/payment")
+    public CommonResult<Payment> getAllPayments() {
+        List<Payment> payments = paymentService.list();
+        log.info("****查询结果" + payments);
+        if (payments != null) {
+            return new CommonResult(200, "查询成功from application: 8001", payments);
+        } else {
+            return new CommonResult<>(410, "没有该记录，查询失败from application: 8001");
+        }
+    }
+
+    @GetMapping(value = "/payment/{id}")
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
+        Payment byId = paymentService.getById(id);
+        log.info("****查询结果" + byId);
+        if (byId != null) {
+            return new CommonResult<>(200, "查询成功from application: 8001", byId);
+        } else {
+            return new CommonResult<>(410, "没有该记录，查询失败from application: 8001");
+        }
+    }
+
 
     @GetMapping(value = "/table")
     public CommonResult getTable(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {

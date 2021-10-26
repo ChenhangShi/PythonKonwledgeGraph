@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Slf4j
-@RefreshScope // 支持Nacos的动态刷新
+@RefreshScope
 public class PaymentController {
 
     @Value("${server.port}")
@@ -44,8 +44,8 @@ public class PaymentController {
         return "from application: 8002" + ", id: " + id;
     }
 
-    @GetMapping(value = "/payment")
-    public CommonResult<Payment> getPaymentById(@RequestParam("id") Long id) {
+    @GetMapping(value = "/payment/{id}")
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
         return new CommonResult<>(200, "get payment from 8002, id=" + id);
     }
 }

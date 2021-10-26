@@ -21,7 +21,7 @@ class PaymentServiceTest {
     PaymentService paymentService;
 
     @Test
-    public void test1(){
+    public void test1() {
         int pageSize = 2;
         Page<Payment> paymentPage = new Page<>(1, pageSize);
         Page<Payment> page = paymentService.page(paymentPage, null);
@@ -30,9 +30,10 @@ class PaymentServiceTest {
         log.info("****查询结果" + page.getRecords());
         log.info("****查询结果" + page.getCurrent());
         log.info("****查询结果" + page.getSize());
+        assertEquals(4, page.getSize());
     }
 
-    public void test2(){
+    public void test2() {
         paymentService.removeById(1);
     }
 }

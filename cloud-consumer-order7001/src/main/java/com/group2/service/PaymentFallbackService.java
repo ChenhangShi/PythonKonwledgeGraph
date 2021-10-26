@@ -11,18 +11,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PaymentFallbackService implements PaymentService {
-    @Override
-    public String getPayment(Long id) {
-        return "服务降级返回----PaymentFallbackService";
-    }
 
     @Override
-    public CommonResult create(Payment payment) {
-        return new CommonResult(444, "兜底");
+    public CommonResult insert(Payment payment) {
+        return new CommonResult(444, "兜底from consumer /payment");
     }
 
     @Override
     public CommonResult getPaymentById(Long id) {
-        return new CommonResult(444, "兜底");
+        return new CommonResult(444, "兜底from consumer /payment/{id}");
+    }
+
+    @Override
+    public CommonResult<Payment> getAllPaymentById() {
+        return new CommonResult(444, "兜底from consumer /payment");
     }
 }

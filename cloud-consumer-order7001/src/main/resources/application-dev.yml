@@ -1,2 +1,26 @@
 server:
   port: 7001
+spring:
+  application:
+    name: cloud-consumer-service-dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.60.188:8848
+        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce # dev命名空间
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace} # dev命名空间
+        file-extension: yaml
+    sentinel:
+      transport:
+        dashboard: 49.234.60.188:8858
+        port: 8719
+
+service-url:
+  nacos-provider-service: http://cloud-provider-service-dev
+
+# 激活sentinel对feign的支持
+feign:
+  sentinel:
+    enabled: true

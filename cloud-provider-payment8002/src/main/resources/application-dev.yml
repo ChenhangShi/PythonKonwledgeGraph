@@ -3,3 +3,29 @@ server:
 
 config:
   info: from file config
+
+spring:
+  application:
+    name: cloud-provider-service-dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.60.188:8848
+        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        file-extension: yaml # 指定yaml格式的配置
+    sentinel:
+      transport:
+        dashboard: 49.234.60.188:8858 # 配置Sentinel dashboard地址
+        port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+# 上面对应Data ID：cloud-provider-service-dev.yaml
