@@ -1,5 +1,7 @@
 # Backend-2
 
+## 必读
+- 本地开发调试时候，`application.yml`的profile改成dev，`bootstrap.yml`的namespace改成dev。在部署之前再改成prod
 ## 尝试cloud-alibaba
 - java 1.8
 - 其他版本参考父pom
