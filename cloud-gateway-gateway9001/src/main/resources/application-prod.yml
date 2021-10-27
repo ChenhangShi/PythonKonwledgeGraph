@@ -27,6 +27,18 @@ spring:
         #            - Cookie=username,zzyy
         #            - Header=X-Request-Id, \d+  # 请求头要有X-Request-Id属性并且值为整数的正则表达式
 
+        - id: insert_payment
+          uri: lb://cloud-provider-devservice # 匹配后提供服务的动态路由地址
+          predicates:
+            - Path=/payment
+            - Method=POST
+
+        - id: update_payment
+          uri: lb://cloud-provider-devservice # 匹配后提供服务的动态路由地址
+          predicates:
+            - Path=/payment
+            - Method=PUT
+
         - id: remote_config_info
           uri: lb://cloud-consumer-service
           predicates:

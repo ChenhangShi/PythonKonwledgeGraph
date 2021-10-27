@@ -46,6 +46,16 @@ public class PaymentController {
         return new CommonResult(200, "get all payments from 8002");
     }
 
+    @PostMapping(value = "/payment")
+    public CommonResult insertPayment(@RequestBody Payment payment) {
+        return new CommonResult(200, "from application 8002", payment);
+    }
+
+    @PutMapping(value = "/payment")
+    public CommonResult<Payment> updatePayment(@RequestBody Payment payment) {
+        return new CommonResult<>(200, "from application 8002", payment);
+    }
+
     @GetMapping("/configinfo")
     public CommonResult getConfiginfo() {
         return new CommonResult(200, "config info from application: 8002", configinfo);
