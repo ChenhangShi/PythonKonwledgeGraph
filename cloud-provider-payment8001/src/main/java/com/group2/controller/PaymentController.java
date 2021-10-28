@@ -45,15 +45,11 @@ public class PaymentController {
 
     @PostMapping(value = "/payment")
     public CommonResult insertPayment(@RequestBody Payment payment) {
-        try {
-            boolean b = paymentService.save(payment);
-            if (b) {
-                return new CommonResult(200, "插入成功");
-            } else {
-                return new CommonResult(417, "插入失败");
-            }
-        } catch (Exception e) {
-            return new CommonResult(417, "异常", e);
+        boolean b = paymentService.save(payment);
+        if (b) {
+            return new CommonResult(200, "插入成功");
+        } else {
+            return new CommonResult(417, "插入失败");
         }
     }
 
