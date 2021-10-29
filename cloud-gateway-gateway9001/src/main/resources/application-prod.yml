@@ -48,3 +48,8 @@ spring:
           uri: lb://cloud-flask-service
           predicates:
             - Path=/flask/**
+
+        - id: graph_service
+          uri: lb://graph-service
+          predicates:
+            - Path=/graph/**
