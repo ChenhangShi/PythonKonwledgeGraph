@@ -1,6 +1,6 @@
 package com.group2.repository;
 
-import com.group2.entity.TagEntity;
+import com.group2.entity.node.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ public class TagRepositoryTest {
 
     @Test
     public void testGetPython(){
-        TagEntity tag = tagRepository.findByName("python");
+        Tag tag = tagRepository.findByName("python");
         System.out.println(tag.getName());
     }
 }

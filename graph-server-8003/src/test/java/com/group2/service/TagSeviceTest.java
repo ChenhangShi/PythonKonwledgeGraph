@@ -1,6 +1,6 @@
 package com.group2.service;
 
-import com.group2.entity.TagEntity;
+import com.group2.entity.node.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ public class TagSeviceTest {
 
     @Test
     public void testGetTagByName(){
-        TagEntity tag = tagService.getTagByName("python").getData();
+        Tag tag = tagService.getTagByName("python").getData();
         System.out.println(tag.getLabel());
     }
 }

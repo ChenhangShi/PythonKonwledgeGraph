@@ -1,7 +1,7 @@
 package com.group2.service;
 
 import com.group2.entities.CommonResult;
-import com.group2.entity.TagEntity;
+import com.group2.entity.node.Tag;
 import com.group2.repository.TagRepository;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ public class TagService {
     @Autowired
     private TagRepository tagRepository;
 
-    public CommonResult<TagEntity> getTagByName(String name){
-        TagEntity tag = tagRepository.findByName(name);
+    public CommonResult<Tag> getTagByName(String name){
+        Tag tag = tagRepository.findByName(name);
         if(tag == null)
             return new CommonResult<>(404,"tag not exist");
-        tag.setLabel(tag.getClass().getAnnotation(NodeEntity.class).label());
+        tag.setLabel(tag.getClass().getAnnotation(NodeEntity.class).value());
         return new CommonResult<>(200, tag.getLabel() + " " + tag.getName(), tag);
     }
 }
