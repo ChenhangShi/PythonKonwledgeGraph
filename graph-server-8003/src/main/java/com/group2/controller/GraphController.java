@@ -1,7 +1,9 @@
 package com.group2.controller;
 
+import com.group2.dto.Relationships;
 import com.group2.entities.CommonResult;
 import com.group2.entity.node.AbstractNode;
+import com.group2.service.GraphService;
 import com.group2.service.node.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +18,16 @@ import java.util.List;
 public class GraphController {
     @Autowired
     private TagService tagService;
+    @Autowired
+    private GraphService graphService;
 
     @GetMapping("/get_first_node")
     public CommonResult<? extends AbstractNode> getFirstNode(){
         return tagService.getTagByName("python");
     }
 
-    @GetMapping("/get_relationships")
-    public CommonResult<List<AbstractNode>> getRelationships(@RequestParam Long id, @RequestParam String label, @RequestParam(defaultValue = "0") Integer page){
-        return new CommonResult<>(200,"success");
+    @GetMapping("/get_my_relationships")
+    public CommonResult<Relationships> getMyRelationships(@RequestParam Long id, @RequestParam String label, @RequestParam(defaultValue = "0") Integer page){
+        return graphService.getMyRelationships(id,label,page);
     }
 }

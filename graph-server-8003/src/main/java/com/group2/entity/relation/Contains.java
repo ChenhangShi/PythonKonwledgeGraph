@@ -16,4 +16,14 @@ public class Contains extends AbstractRelation{
     private Question question;
     @EndNode
     private Tag tag;
+
+    @Override
+    public Question getStartNode(){
+        return question;
+    }
+
+    @Override
+    public Tag getEndNode(){
+        return tag;
+    }
 }

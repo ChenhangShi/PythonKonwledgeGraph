@@ -16,4 +16,14 @@ public class BelongsTo extends AbstractRelation{
     private Answer answer;
     @EndNode
     private Question question;
+
+    @Override
+    public Answer getStartNode(){
+        return answer;
+    }
+
+    @Override
+    public Question getEndNode(){
+        return question;
+    }
 }

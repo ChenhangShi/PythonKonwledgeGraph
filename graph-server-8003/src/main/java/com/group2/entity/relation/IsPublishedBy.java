@@ -16,4 +16,14 @@ public class IsPublishedBy extends AbstractRelation{
     private Answer answer;
     @EndNode
     private User user;
+
+    @Override
+    public Answer getStartNode(){
+        return answer;
+    }
+
+    @Override
+    public User getEndNode(){
+        return user;
+    }
 }

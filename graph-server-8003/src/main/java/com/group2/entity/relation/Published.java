@@ -16,4 +16,14 @@ public class Published extends AbstractRelation{
     private User user;
     @EndNode
     private Answer answer;
+
+    @Override
+    public User getStartNode(){
+        return user;
+    }
+
+    @Override
+    public Answer getEndNode(){
+        return answer;
+    }
 }

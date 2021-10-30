@@ -18,7 +18,7 @@ public class TagService {
         Tag tag = tagRepository.findByName(name);
         if(tag == null)
             return new CommonResult<>(404,"tag not exist");
-        tag.setLabel(tag.getClass().getAnnotation(NodeEntity.class).value());
+        tag.setLabel();
         return new CommonResult<>(200, tag.getLabel() + " " + tag.getName(), tag);
     }
 }

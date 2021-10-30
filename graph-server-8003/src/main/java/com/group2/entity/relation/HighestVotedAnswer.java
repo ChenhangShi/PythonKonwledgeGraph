@@ -16,4 +16,14 @@ public class HighestVotedAnswer extends AbstractRelation{
     private Question question;
     @EndNode
     private Answer answer;
+
+    @Override
+    public Question getStartNode(){
+        return question;
+    }
+
+    @Override
+    public Answer getEndNode(){
+        return answer;
+    }
 }

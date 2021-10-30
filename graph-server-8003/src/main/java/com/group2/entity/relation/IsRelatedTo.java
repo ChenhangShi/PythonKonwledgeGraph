@@ -16,4 +16,14 @@ public class IsRelatedTo extends AbstractRelation{
     private Tag tag;
     @EndNode
     private Question question;
+
+    @Override
+    public Tag getStartNode(){
+        return tag;
+    }
+
+    @Override
+    public Question getEndNode(){
+        return question;
+    }
 }
