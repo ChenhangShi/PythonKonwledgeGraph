@@ -10,4 +10,4 @@ spring:
         dashboard: 49.234.60.188:8858 # 配置Sentinel dashboard地址
   data:
     neo4j:
-      uri: bolt://localhost:7687
+      uri: bolt://49.234.60.188:7687

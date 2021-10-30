@@ -1,8 +1,8 @@
-package com.group2.service;
+package com.group2.service.node;
 
 import com.group2.entities.CommonResult;
 import com.group2.entity.node.Tag;
-import com.group2.repository.TagRepository;
+import com.group2.repository.node.TagRepository;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
