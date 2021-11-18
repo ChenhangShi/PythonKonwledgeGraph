@@ -10,8 +10,8 @@ import org.neo4j.ogm.annotation.StartNode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@RelationshipEntity("highest_voted_answer")
-public class HighestVotedAnswer extends AbstractRelation{
+@RelationshipEntity("has_answer")
+public class HasAnswer extends AbstractRelation{
     @StartNode
     private Question question;
     @EndNode

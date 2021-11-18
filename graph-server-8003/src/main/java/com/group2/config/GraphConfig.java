@@ -20,8 +20,8 @@ public class GraphConfig {
 
     @Bean
     @Qualifier("for_question")
-    public List<AbstractRelationRepository> questionAbstractRelationRepos(ContainsRepository containsRepository, HighestVotedAnswerRepository highestVotedAnswerRepository, IsSimilarToRepository isSimilarToRepository){
-        return new ArrayList<AbstractRelationRepository>(){{add(containsRepository);add(highestVotedAnswerRepository);add(isSimilarToRepository);}};
+    public List<AbstractRelationRepository> questionAbstractRelationRepos(ContainsRepository containsRepository, HasAnswerRepository hasAnswerRepository, IsSimilarToRepository isSimilarToRepository){
+        return new ArrayList<AbstractRelationRepository>(){{add(containsRepository);add(hasAnswerRepository);add(isSimilarToRepository);}};
     }
 
     @Bean

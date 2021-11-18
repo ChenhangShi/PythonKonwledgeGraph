@@ -17,4 +17,6 @@ public class Question extends AbstractNode{
     private Integer vote;
     @Property("viewed_times")
     private Integer viewedTimes;
+    @Property("answer_num")
+    private Integer answerNum;
 }
