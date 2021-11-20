@@ -10,7 +10,7 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-public class IsRelatedRepositoryTest {
+public class IsRelatedToRepositoryTest {
     @Autowired
     IsRelatedToRepository isRelatedToRepository;
 

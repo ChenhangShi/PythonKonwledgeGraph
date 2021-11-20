@@ -14,8 +14,8 @@ import java.util.Map;
 public class GraphConfig {
     @Bean
     @Qualifier("for_tag")
-    public List<AbstractRelationRepository> tagAbstractRelationRepos(IsRelatedToRepository isRelatedToRepository){
-        return new ArrayList<AbstractRelationRepository>(){{add(isRelatedToRepository);}};
+    public List<AbstractRelationRepository> tagAbstractRelationRepos(IsRelatedToRepository isRelatedToRepository, IsSuperiorToRepository isSuperiorToRepository, IsInferiorToRepository isInferiorToRepository){
+        return new ArrayList<AbstractRelationRepository>(){{add(isRelatedToRepository);add(isSuperiorToRepository);add(isInferiorToRepository);}};
     }
 
     @Bean

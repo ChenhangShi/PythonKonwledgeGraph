@@ -7,6 +7,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AbstractRelationRepository {
-    @Query("MATCH p=(n)-[]->() where id(n)=$id return p skip $skip limit $limit")
-    List<AbstractRelation> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
+    List<AbstractRelation> findByStartNodeId(Long id, Long skip, Integer limit);
 }
