@@ -11,5 +11,5 @@ import java.util.List;
 public interface ContainsRepository extends Neo4jRepository<Contains,Long>,AbstractRelationRepository {
     @Override
     @Query("MATCH p=(n)-[:contains]->() where id(n)=$id return p skip $skip limit $limit")
-    List<AbstractRelation> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
+    List<Contains> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
 }

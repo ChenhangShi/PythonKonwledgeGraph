@@ -11,5 +11,5 @@ import java.util.List;
 public interface IsInferiorToRepository extends Neo4jRepository<IsInferiorTo,Long>, AbstractRelationRepository{
     @Override
     @Query("MATCH p=(n)-[:is_inferior_to]->() where id(n)=$id return p skip $skip limit $limit")
-    List<AbstractRelation> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
+    List<IsInferiorTo> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
 }

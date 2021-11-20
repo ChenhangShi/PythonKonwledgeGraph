@@ -11,5 +11,5 @@ import java.util.List;
 public interface PublishedRepository extends Neo4jRepository<Published,Long>,AbstractRelationRepository {
     @Override
     @Query("MATCH p=(n)-[:published]->() where id(n)=$id return p skip $skip limit $limit")
-    List<AbstractRelation> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
+    List<Published> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
 }

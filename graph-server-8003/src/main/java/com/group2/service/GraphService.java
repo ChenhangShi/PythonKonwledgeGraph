@@ -24,7 +24,7 @@ public class GraphService {
         List<AbstractRelationRepository> relationRepositories = eachLabelAbstractRelationRepos.get(label);
         List<AbstractRelation> relations = new ArrayList<>();
         for(AbstractRelationRepository abstractRelationRepository:relationRepositories){
-            List<AbstractRelation> curRelations = abstractRelationRepository.findByStartNodeId(id, (long) (page*PAGE_SIZE),PAGE_SIZE);
+            List<? extends AbstractRelation> curRelations = abstractRelationRepository.findByStartNodeId(id, (long) (page*PAGE_SIZE),PAGE_SIZE);
             relations.addAll(curRelations);
         }
         Set<AbstractNode> relatedNodeSet = new HashSet<>();

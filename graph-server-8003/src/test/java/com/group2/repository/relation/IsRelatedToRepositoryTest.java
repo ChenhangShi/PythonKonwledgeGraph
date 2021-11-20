@@ -1,6 +1,7 @@
 package com.group2.repository.relation;
 
 import com.group2.entity.relation.AbstractRelation;
+import com.group2.entity.relation.IsRelatedTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,7 @@ public class IsRelatedToRepositoryTest {
 
     @Test
     public void testFindByStartNodeId(){
-        List<AbstractRelation> isRelatedToList = isRelatedToRepository.findByStartNodeId(26348L,0L,10);
+        List<IsRelatedTo> isRelatedToList = isRelatedToRepository.findByStartNodeId(26348L,0L,10);
         for (AbstractRelation isRelatedTo: isRelatedToList)
             isRelatedTo.setType();
         System.out.println(isRelatedToList.get(0).getType());
