@@ -14,7 +14,7 @@ import java.util.*;
 
 @Service
 public class GraphService {
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 5;
 
     @Autowired
     @Qualifier("each_label") // 不写qualifier，会用4个list的bean组合成map注入，而不是规定的map
@@ -24,7 +24,7 @@ public class GraphService {
         List<AbstractRelationRepository> relationRepositories = eachLabelAbstractRelationRepos.get(label);
         List<AbstractRelation> relations = new ArrayList<>();
         for(AbstractRelationRepository abstractRelationRepository:relationRepositories){
-            List<? extends AbstractRelation> curRelations = abstractRelationRepository.findByStartNodeId(id, (long) (page*PAGE_SIZE),PAGE_SIZE);
+            List<? extends AbstractRelation> curRelations = abstractRelationRepository.findByStartNodeId(id, ((long) page *PAGE_SIZE),PAGE_SIZE);
             relations.addAll(curRelations);
         }
         Set<AbstractNode> relatedNodeSet = new HashSet<>();
