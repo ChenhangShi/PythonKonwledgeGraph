@@ -49,9 +49,11 @@ public class RecommendationService {
     private Integer questionMaxLength;
 
     private final static Integer WEAKEN_FACTOR = 3;
+    private final static Integer RECOMMENDED_USER_NUM = 10;
+    private final static Integer QUESTION_NUM_LIMIT = 60;
 
+    // TODO 缓存
     public CommonResult<List<User>> getRecommendedUsers(String input){
-        input = preHandleInput(input);
         Tag tag = getMostSimilarTag(input);
         if(tag==null)
             return new CommonResult<>(404,"抱歉，数据库中没有该领域的知识，请检查拼写或换一种表达方式");
@@ -59,17 +61,11 @@ public class RecommendationService {
         List<Map.Entry<User,Double>> entryList = new ArrayList<>(userRecommendScoreMap.entrySet());
         entryList.sort(Map.Entry.comparingByValue());
         List<User> recommendedUsers = new ArrayList<>();
-        for (int i = entryList.size()-1; i >= 0 && recommendedUsers.size() < 10 ; i--)
+        for (int i = entryList.size()-1; i >= 0 && recommendedUsers.size() < RECOMMENDED_USER_NUM ; i--)
             recommendedUsers.add(entryList.get(i).getKey());
         CommonResult<List<User>> result = new CommonResult<>(200,"成功，推荐顺序从高到低");
         result.setData(recommendedUsers);
         return result;
-    }
-
-    private String preHandleInput(String input){
-        input = input.trim().toLowerCase();
-        input = input.replaceAll("\\s+","-");
-        return input;
     }
 
     private Tag getMostSimilarTag(String input){
@@ -102,37 +98,64 @@ public class RecommendationService {
         Map<User,Double> result = new HashMap<>();
         Set<Question> relatedQuestions = questionRepository.findByTagId(tag.getId());
         Set<Question> similarQuestions = new HashSet<>();
-        for(Question question:relatedQuestions){
+        int questionCount = 0;
+        List<Map.Entry<Question,Double>> sortedQuestionList = sortQuestionByPrimitiveWeight(relatedQuestions);
+        // TODO 多线程优化
+        for(Map.Entry<Question,Double> entry:sortedQuestionList){
+            Question question = entry.getKey();
             similarQuestions.addAll(questionRepository.getSimilarQuestionsById(question.getId()));
             if (visitedQuestions.contains(question))
                 continue;
-            Map<User,Double> subResult = calculateFromQuestion(question,weakenTimes);
+            if (questionCount >= QUESTION_NUM_LIMIT)
+                break;
+            Map<User,Double> subResult = calculateFromQuestion(question,weakenTimes,entry.getValue());
             subResult.forEach((key, value) -> result.merge(key, value, Double::sum));
             visitedQuestions.add(question);
+            questionCount++;
         }
         weakenTimes *= WEAKEN_FACTOR;
-        for(Question question:similarQuestions){
+        questionCount = 0;
+        sortedQuestionList = sortQuestionByPrimitiveWeight(similarQuestions);
+        // TODO 多线程优化
+        for(Map.Entry<Question,Double> entry:sortedQuestionList){
+            Question question = entry.getKey();
             if (visitedQuestions.contains(question))
                 continue;
-            Map<User,Double> subResult = calculateFromQuestion(question,weakenTimes);
+            if (questionCount >= QUESTION_NUM_LIMIT /2)
+                break;
+            Map<User,Double> subResult = calculateFromQuestion(question,weakenTimes,entry.getValue());
             subResult.forEach((key, value) -> result.merge(key, value, Double::sum));
             visitedQuestions.add(question);
+            questionCount++;
         }
         return result;
     }
 
-    private Map<User,Double> calculateFromQuestion(Question question,Integer weakenTimes){
+    private Map<User,Double> calculateFromQuestion(Question question,Integer weakenTimes,Double primitiveWeight){
         Map<User,Double> result = new HashMap<>();
-        double weight = (Utils.normalize(questionMinVote,questionMaxVote,question.getVote())
-                + Utils.normalize(questionMinViewedTimes,questionMaxViewedTimes,question.getViewedTimes())
-                + Utils.normalize(questionMinAnswerNum,questionMaxAnswerNum,question.getAnswerNum())
-                + Utils.normalize(questionMinLength,questionMaxLength,question.getLength())
-        )/weakenTimes;
+        double weight = primitiveWeight/weakenTimes;
         Set<Answer> answers = answerRepository.getByQuestionId(question.getId());
         for (Answer answer:answers){
             User user = userRepository.getByAnswerId(answer.getId());
             result.merge(user,weight*answer.getVote(),Double::sum);
         }
         return result;
+    }
+
+    private double getQuestionPrimitiveWeight(Question question){
+        return Utils.normalize(questionMinVote,questionMaxVote,question.getVote())
+                + Utils.normalize(questionMinViewedTimes,questionMaxViewedTimes,question.getViewedTimes())
+                + Utils.normalize(questionMinAnswerNum,questionMaxAnswerNum,question.getAnswerNum())
+                + Utils.normalize(questionMinLength,questionMaxLength,question.getLength());
+    }
+
+    private List<Map.Entry<Question,Double>> sortQuestionByPrimitiveWeight(Collection<Question> questions){
+        Map<Question,Double> questionPrimitiveWeightMap = new HashMap<>();
+        for(Question question:questions)
+            questionPrimitiveWeightMap.put(question,getQuestionPrimitiveWeight(question));
+        List<Map.Entry<Question,Double>> entryList = new ArrayList<>(questionPrimitiveWeightMap.entrySet());
+        entryList.sort(Map.Entry.comparingByValue());
+        Collections.reverse(entryList);
+        return entryList;
     }
 }

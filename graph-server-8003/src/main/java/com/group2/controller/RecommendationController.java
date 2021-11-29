@@ -19,6 +19,12 @@ public class RecommendationController {
 
     @GetMapping("/get_recommendation_users")
     public CommonResult<List<User>> getRecommendedUsers(@RequestParam String input){
-        return recommendationService.getRecommendedUsers(input);
+        return recommendationService.getRecommendedUsers(preHandleInput(input));
+    }
+
+    private String preHandleInput(String input){
+        input = input.trim().toLowerCase();
+        input = input.replaceAll("\\s+","-");
+        return input;
     }
 }
