@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true,exclude = "type")
 public abstract class AbstractRelation extends AbstractEntity {
     private String type;
 

@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true,exclude = "label")
 public abstract class AbstractNode extends AbstractEntity {
     private String label;
 

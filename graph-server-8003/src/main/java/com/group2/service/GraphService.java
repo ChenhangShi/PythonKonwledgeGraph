@@ -9,10 +9,12 @@ import com.group2.repository.relation.AbstractRelationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class GraphService {
     private static final int PAGE_SIZE = 5;
 
