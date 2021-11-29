@@ -17,7 +17,7 @@ public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
 
-    @GetMapping("/get_recommendation_users")
+    @GetMapping("/get_recommended_users")
     public CommonResult<List<User>> getRecommendedUsers(@RequestParam String input){
         return recommendationService.getRecommendedUsers(preHandleInput(input));
     }
