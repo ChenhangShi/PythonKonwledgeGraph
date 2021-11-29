@@ -50,7 +50,7 @@ public class RecommendationService {
 
     private final static Integer WEAKEN_FACTOR = 3;
     private final static Integer RECOMMENDED_USER_NUM = 10;
-    private final static Integer QUESTION_NUM_LIMIT = 60;
+    private final static Integer QUESTION_NUM_LIMIT = 100;
 
     // TODO 缓存
     public CommonResult<List<User>> getRecommendedUsers(String input){
