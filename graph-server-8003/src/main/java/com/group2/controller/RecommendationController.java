@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recommend")
+@RequestMapping("/graph/recommend")
 public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;

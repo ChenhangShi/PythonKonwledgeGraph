@@ -15,7 +15,7 @@ import java.util.*;
 
 @Service
 @Transactional
-public class GraphService {
+public class VisualizationService {
     private static final int PAGE_SIZE = 5;
 
     @Autowired

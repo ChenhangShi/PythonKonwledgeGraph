@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 @AutoConfigureMockMvc
 @WebAppConfiguration
 @Transactional
-public class GraphControllerTest {
+public class VisualizationControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -29,7 +29,7 @@ public class GraphControllerTest {
 
     @Test
     public void testGetFirstNode() throws Exception{
-        String res = mockMvc.perform(MockMvcRequestBuilders.get("/graph/get_first_node"))
+        String res = mockMvc.perform(MockMvcRequestBuilders.get("/graph/visualize/get_first_node"))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

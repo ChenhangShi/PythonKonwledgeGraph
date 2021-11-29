@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-public class GraphConfig {
+public class VisualizationConfig {
     @Bean
     @Qualifier("for_tag")
     public List<AbstractRelationRepository> tagAbstractRelationRepos(IsRelatedToRepository isRelatedToRepository, IsSuperiorToRepository isSuperiorToRepository, IsInferiorToRepository isInferiorToRepository){
