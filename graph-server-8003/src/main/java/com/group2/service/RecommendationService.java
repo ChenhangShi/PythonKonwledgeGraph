@@ -54,6 +54,8 @@ public class RecommendationService {
 
     // TODO 缓存
     public CommonResult<List<User>> getRecommendedUsers(String input){
+        if (input == null || input.length()==0)
+            return new CommonResult<>(404,"请输入有效的领域");
         Tag tag = getMostSimilarTag(input);
         if(tag==null)
             return new CommonResult<>(404,"抱歉，数据库中没有该领域的知识，请检查拼写或换一种表达方式");

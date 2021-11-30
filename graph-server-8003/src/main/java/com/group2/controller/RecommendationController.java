@@ -18,13 +18,15 @@ public class RecommendationController {
     private RecommendationService recommendationService;
 
     @GetMapping("/get_recommended_users")
-    public CommonResult<List<User>> getRecommendedUsers(@RequestParam String input){
+    public CommonResult<List<User>> getRecommendedUsers(@RequestParam String input) {
         return recommendationService.getRecommendedUsers(preHandleInput(input));
     }
 
-    private String preHandleInput(String input){
-        input = input.trim().toLowerCase();
-        input = input.replaceAll("\\s+","-");
+    private String preHandleInput(String input) {
+        if (input != null) {
+            input = input.trim().toLowerCase();
+            input = input.replaceAll("\\s+", "-");
+        }
         return input;
     }
 }
