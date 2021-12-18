@@ -4,6 +4,7 @@ import com.group2.entity.node.Tag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.neo4j.ogm.annotation.EndNode;
+import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
@@ -15,6 +16,9 @@ public class IsSuperiorTo extends AbstractRelation{
     private Tag tag1;
     @EndNode
     private Tag tag2;
+
+    @Property
+    private double reliability;
 
     @Override
     public Tag getStartNode(){

@@ -12,4 +12,7 @@ public interface IsSimilarToRepository extends Neo4jRepository<IsSimilarTo,Long>
     @Override
     @Query("MATCH p=(n)-[:is_similar_to]->() where id(n)=$id return p skip $skip limit $limit")
     List<IsSimilarTo> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
+
+    @Query("match p=()-[r:is_similar_to]->() return p order by r.reliability desc skip $skip limit $limit")
+    List<IsSimilarTo> sortAndLimit(@Param("skip") Integer skip,@Param("limit") Integer limit);
 }

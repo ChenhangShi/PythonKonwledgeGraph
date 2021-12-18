@@ -28,4 +28,14 @@ public class VisualizationController {
     public CommonResult<Relationships> getMyRelationships(@RequestParam Long id, @RequestParam String label, @RequestParam(defaultValue = "0") Integer page){
         return visualizationService.getMyRelationships(id,label,page);
     }
+
+    @GetMapping("/get_is_similar_to_relationships")
+    public CommonResult<Relationships> getIsSimilarToRelationships(@RequestParam Integer from, @RequestParam Integer to){
+        return visualizationService.getIsSimilarToRelationships(from,to);
+    }
+
+    @GetMapping("/get_is_superior_or_inferior_to_relationships")
+    public CommonResult<Relationships> getIsSuperiorOrInferiorToRelationships(@RequestParam Integer from, @RequestParam Integer to){
+        return visualizationService.getIsSuperiorOrInferiorToRelationships(from,to);
+    }
 }

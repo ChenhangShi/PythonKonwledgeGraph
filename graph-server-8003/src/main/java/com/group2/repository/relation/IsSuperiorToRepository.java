@@ -12,4 +12,7 @@ public interface IsSuperiorToRepository extends Neo4jRepository<IsSuperiorTo,Lon
     @Override
     @Query("MATCH p=(n)-[:is_superior_to]->() where id(n)=$id return p skip $skip limit $limit")
     List<IsSuperiorTo> findByStartNodeId(@Param("id")Long id, @Param("skip")Long skip, @Param("limit")Integer limit);
+
+    @Query("match p=()-[r:is_superior_to]->() return p order by r.reliability desc skip $skip limit $limit")
+    List<IsSuperiorTo> sortAndLimit(@Param("skip") Integer skip,@Param("limit") Integer limit);
 }
