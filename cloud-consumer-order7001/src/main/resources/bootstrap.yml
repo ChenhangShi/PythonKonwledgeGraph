@@ -4,20 +4,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 172.17.0.1:8848 # 配置Nacos地址
+        server-addr: 49.234.60.188:8848
+#        namespace: 78c2d7f6-4775-4ce9-97d2-4491ff4680ce # dev
+        namespace: f059b933-a68c-4633-afb0-c28d7478fb30 # prod
       config:
-        server-addr: 172.17.0.1:8848
-        namespace: 837269a5-7fec-46d0-a3f0-010b3bc64a9b # 在nacos配置的命名空间
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
         file-extension: yaml # 指定yaml格式的配置
-    sentinel:
-      transport:
-        dashboard: 172.17.0.1:8858 # 配置Sentinel dashboard地址
-        port: 8719 # 默认8719端口，假设被占用，会从8719依次+1扫描，直至找到未被占用的端口
-
-service-url:
-  nacos-provider-service: http://cloud-provider-service
-
-# 激活sentinel对feign的支持
-feign:
-  sentinel:
-    enabled: true

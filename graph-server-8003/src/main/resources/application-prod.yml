@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: graph-service
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 172.17.0.1:8858 # 配置Sentinel dashboard地址
+  data:
+    neo4j:
+      uri: bolt://172.17.0.1:7687

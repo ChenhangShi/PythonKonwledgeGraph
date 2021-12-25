@@ -16,6 +16,7 @@
         <module>cloud-common</module>
         <module>cloud-provider-payment8002</module>
         <module>cloud-gateway-gateway9001</module>
+        <module>graph-server-8003</module>
     </modules>
 
     <!-- 统一管理jar包版本 -->

@@ -29,9 +29,9 @@ pipeline {
 //
 //       }
 //     }
-    stage('build') {
+    stage('test and build') {
       steps {
-          sh 'mvn -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean package'
+          sh 'mvn -gs `pwd`/mvn-settings.xml clean package'
           sh 'cd $PROJECT_NAME && docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
           withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,credentialsId : "$DOCKER_CREDENTIAL_ID" ,)]) {
             sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
@@ -46,7 +46,7 @@ pipeline {
         sh 'docker start nacos'
         sh 'docker start sentinel'
         sh 'docker rm -f "$PROJECT_NAME"'
-        sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION'
+        sh 'docker run -d --name $PROJECT_NAME -p $PORT:8080 -v /etc/localtime:/etc/localtime -v /usr/lib/java8/jdk1.8.0_261:/usr/local/jdk $REGISTRY/$DOCKERHUB_NAMESPACE/$PROJECT_NAME:$PROJECT_VERSION'
       }
     }
 //     stage('部署到k8s') {
