@@ -13,13 +13,14 @@ import java.util.Map;
 @Configuration
 public class VisualizationConfig {
     @Bean
-    @Qualifier("for_tag")
+    // @Bean产生的默认名称就是方法名
+//    @Qualifier("for_tag")
     public List<AbstractRelationRepository> tagAbstractRelationRepos(IsRelatedToRepository isRelatedToRepository, IsSuperiorToRepository isSuperiorToRepository, IsInferiorToRepository isInferiorToRepository){
         return new ArrayList<AbstractRelationRepository>(){{add(isRelatedToRepository);add(isSuperiorToRepository);add(isInferiorToRepository);}};
     }
 
-    @Bean
-    @Qualifier("for_question")
+    @Bean("for_question")
+//    @Qualifier("for_question")
     public List<AbstractRelationRepository> questionAbstractRelationRepos(ContainsRepository containsRepository, HasAnswerRepository hasAnswerRepository, IsSimilarToRepository isSimilarToRepository){
         return new ArrayList<AbstractRelationRepository>(){{add(containsRepository);add(hasAnswerRepository);add(isSimilarToRepository);}};
     }
@@ -39,7 +40,7 @@ public class VisualizationConfig {
     @Bean
     @Qualifier("each_label")
     public Map<String,List<AbstractRelationRepository>> eachLabelAbstractRelationRepos(
-            @Qualifier("for_tag")List<AbstractRelationRepository> tagAbstractRelationRepos,
+            @Qualifier("tagAbstractRelationRepos")List<AbstractRelationRepository> tagAbstractRelationRepos,
             @Qualifier("for_question")List<AbstractRelationRepository> questionAbstractRelationRepos,
             @Qualifier("for_answer")List<AbstractRelationRepository> answerAbstractRelationRepos,
             @Qualifier("for_user")List<AbstractRelationRepository> userAbstractRelationRepos
