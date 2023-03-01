@@ -1,0 +1,22 @@
+录入节点
+load csv from 'file:/major_data.csv' as line merge (n:question{title:line[0],length:toInteger(line[1]),vote:toInteger(line[2])})
+load csv from 'file:/question_viewed_times.csv' as line match (n:question{title:line[0]}) set n.viewed_times = toInteger(line[1])
+load csv from 'file:/major_data.csv' as line merge (n:answer{name:line[0]+'_0',vote:toInteger(line[3])})
+load csv from 'file:/user.csv' as line merge (n:user{name:line[0],url:line[1]})
+load csv from 'file:/tag.csv' as line merge (n:tag{name:line[0]})
+
+录入关系
+load csv from 'file:/major_data.csv' as line
+match (n:question{title:line[0]}), (m:answer{name:line[0]+'_0'})
+merge (n)-[r:highest_voted_answer]->(m)
+merge (m)-[r1:belongs_to]->(n)
+
+load csv from 'file:/question_tag.csv' as line
+match (n:question{title:line[0]}),(m:tag{name:line[1]})
+merge (n)-[r:contains]->(m)
+merge (m)-[r2:is_related_to]->(n)
+
+load csv from 'file:/major_data.csv' as line
+match (n:question{title:line[0]})-[]->(m:answer),(u:user{url:line[5]})
+merge (m)-[:is_published_by]->(u)
+merge (u)-[:published]->(m)

@@ -1,0 +1,35 @@
+删除原来
+match ()-[r:belongs_to]->() delete r
+match ()-[r:highest_voted_answer]->() delete r
+match ()-[r:published]->() delete r
+match ()-[r:is_published_by]->() delete r
+match (n:answer) delete n
+match (n:user) delete n
+
+录入节点
+:auto USING PERIODIC COMMIT 10000
+load csv from 'file:/refacted_question_answer.csv' as line
+create (n:answer{name:line[2],vote:toInteger(line[1])})
+
+:auto USING PERIODIC COMMIT 10000
+load csv from 'file:/user.csv' as line
+create (n:user{name:line[0],url:line[1]})
+
+录入关系
+:auto USING PERIODIC COMMIT 10000
+load csv from 'file:/refacted_question_answer.csv' as line
+match (n:question{title:line[0]}), (m:answer{name:line[2]})
+merge (n)-[:has_answer]->(m)
+merge (m)-[:belongs_to]->(n)
+
+:auto USING PERIODIC COMMIT 10000
+load csv from 'file:/refacted_question_answer.csv' as line
+match (n:answer{name:line[2]}),(m:user{url:line[4]})
+merge (n)-[:is_published_by]->(m)
+merge (m)-[:published]->(n)
+
+添加问题节点的答案数的属性
+:auto USING PERIODIC COMMIT 5000
+load csv from 'file:/question_answer_num.csv' as line
+match (n:question{title:line[0]})
+set n.answer_num = toInteger(line[1])
